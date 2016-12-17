@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Cuentas implements crudObjetos{
@@ -45,11 +47,13 @@ public class Cuentas implements crudObjetos{
         {
              
         }
+        return true;
     }
 
     @Override
     public boolean setObjeto() {
-        basedatos bd = new basedatos(this.servidor,this.user, this.password);
+        basedatos bd;
+        bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
         ResultSet rs;
@@ -71,13 +75,29 @@ public class Cuentas implements crudObjetos{
         }
         catch(SQLException ex)
         {
-             
+             return false;
         }
+        return true;
     }
 
     @Override
     public boolean deleteObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        basedatos bd;
+        bd = new basedatos(this.servidor,this.user, this.password);
+        Connection con=bd.getConnection();
+        Statement st;
+        ResultSet rs;
+        String sql="";
+        try
+        {
+           st=con.createStatement();
+           st.executeUpdate(sql);
+        }
+        catch(SQLException ex)
+        { 
+             return false;
+        }
+        return true;
     }
     
 }
