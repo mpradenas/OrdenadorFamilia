@@ -27,12 +27,13 @@ public class Cuentas implements crudObjetos{
     
     
     @Override
-    public Object getObjeto() {
-      basedatos bd = new basedatos(this.servidor,this.user, this.password);
-      Connection con=bd.getConnection();
-      Statement st;
-      ResultSet rs;
-      String sql="";
+    public Object getObjeto(int idCuenta) {
+        basedatos bd = new basedatos(this.servidor,this.user, this.password);
+        Connection con=bd.getConnection();
+        Statement st;
+        ResultSet rs;
+        String sql="SELECT id_cuenta,nombre_cuenta,montodeuda,estado,fecha FROM ordenadorfamilia.cuentas where id_cuenta="+idCuenta;
+        ObjCuenta laCuenta= new ObjCuenta();
         try
         {
            st=con.createStatement();
@@ -41,23 +42,23 @@ public class Cuentas implements crudObjetos{
            {
            
            }
-           
         }
         catch(SQLException ex)
         {
-             
+             laCuenta=null;
         }
-        return true;
+        return laCuenta;
     }
 
     @Override
-    public boolean setObjeto() {
+    public boolean setObjeto(ObjCuenta laCuenta) 
+    {
         basedatos bd;
         bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
         ResultSet rs;
-        String sql="";
+        String sql="SELECT id_cuenta,nombre_cuenta,montodeuda,estado,fecha FROM ordenadorfamilia.cuentas where id_cuenta="+laCuenta.getID_CUENTA();
         try
         {
            st=con.createStatement();
@@ -81,13 +82,13 @@ public class Cuentas implements crudObjetos{
     }
 
     @Override
-    public boolean deleteObjeto() {
+    public boolean deleteObjeto(ObjCuenta laCuenta) {
         basedatos bd;
         bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
         ResultSet rs;
-        String sql="";
+        String sql="DELETE FROM Cuentas Where id_cuenta="+laCuenta.getID_CUENTA();
         try
         {
            st=con.createStatement();

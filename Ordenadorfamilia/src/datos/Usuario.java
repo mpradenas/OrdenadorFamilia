@@ -8,17 +8,23 @@ import java.sql.Statement;
 
 public class Usuario  implements crudObjetos {
 
-    
-    
-   
-    
+    private String servidor;
+    private String user;
+    private String password;
+
+    public Usuario(String servidor, String user, String password) {
+        this.servidor = servidor;
+        this.user = user;
+        this.password = password;
+    }
     @Override
     public Object getObjeto() {
-   basedatos bd = new basedatos(this.servidor,this.user, this.password);
+        basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
         ResultSet rs;
         String sql="";
+        ObjUsuario elUsuario= new ObjUsuario();
         try
         {
            st=con.createStatement();
@@ -31,8 +37,9 @@ public class Usuario  implements crudObjetos {
         }
         catch(SQLException ex)
         {
-             
+             elUsuario=null;
         } 
+        return elUsuario;
     }
 
     @Override
@@ -54,13 +61,28 @@ public class Usuario  implements crudObjetos {
         }
         catch(SQLException ex)
         {
-             
+            return false;     
         } 
+        return true;
     }
 
     @Override
     public boolean deleteObjeto() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        basedatos bd = new basedatos(this.servidor,this.user, this.password);
+        Connection con=bd.getConnection();
+        Statement st;
+        String sql="";
+        try
+        {
+           st=con.createStatement();
+           st.executeUpdate(sql);
+        }
+        catch(SQLException ex)
+        {
+            return false;     
+        } 
+        return true;
+    
     }
     
 }
