@@ -39,6 +39,8 @@ public class RolHogar implements crudObjetos{
            rs=st.executeQuery(sql);
            if(rs.next())
            {
+                elRolHogar.setId_Rol(rs.getInt("id_rol"));
+                elRolHogar.setDescripcion(rs.getString("descripcion"));
                 
            }
            
@@ -62,6 +64,10 @@ public class RolHogar implements crudObjetos{
            st=con.createStatement();
            rs=st.executeQuery(sql);
            if(rs.next())
+           {
+                
+           }
+           else
            {
            
            }

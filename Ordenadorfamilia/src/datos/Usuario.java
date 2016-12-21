@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class Usuario  implements crudObjetos {
+public class Usuario implements crudObjetos {
 
     private String servidor;
     private String user;
@@ -18,12 +18,12 @@ public class Usuario  implements crudObjetos {
         this.password = password;
     }
     @Override
-    public Object getObjeto() {
+    public Object getObjeto(int idUsuario) {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
         ResultSet rs;
-        String sql="";
+        String sql="SELECT ID_USUARIO,ID_ROL,NOMBRE_USUARIO,AP_PATERNO,AP_MATERNO,NICK_NAME,PASSWORD FROM ordenadorfamilia.usuario WHERE id_usuario="+idUsuario;
         ObjUsuario elUsuario= new ObjUsuario();
         try
         {
@@ -43,12 +43,12 @@ public class Usuario  implements crudObjetos {
     }
 
     @Override
-    public boolean setObjeto() {
+    public boolean setObjeto(ObjUsuario elUsuario) {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
         ResultSet rs;
-        String sql="";
+        String sql="SELECT ID_USUARIO,ID_ROL,NOMBRE_USUARIO,AP_PATERNO,AP_MATERNO,NICK_NAME,PASSWORD FROM ordenadorfamilia.usuario WHERE id_usuario="+elUsuario.getIdUsuario();
         try
         {
            st=con.createStatement();
@@ -67,11 +67,11 @@ public class Usuario  implements crudObjetos {
     }
 
     @Override
-    public boolean deleteObjeto() {
+    public boolean deleteObjeto(ObjUsuario elUsuario) {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
-        String sql="";
+        String sql="delete FROM ordenadorfamilia.usuario WHERE id_usuario="+elUsuario.getIdUsuario();
         try
         {
            st=con.createStatement();
@@ -82,7 +82,6 @@ public class Usuario  implements crudObjetos {
             return false;     
         } 
         return true;
-    
     }
     
 }
