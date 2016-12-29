@@ -27,7 +27,7 @@ private String password;
         Connection con=bd.getConnection();
         Statement st;
         ResultSet rs;
-        String sql="";
+        String sql="SELECT IDCUENTAUSUARIO,ID_USUARIO,ID_CUENTA FROM ordenadorfamilia.cuentas_usuarios where IDCUENTAUSUARIO="+idcuentas_usuarios;
         ObjCuentas_usuarios oCusuarios= new ObjCuentas_usuarios();
         try
         {
@@ -35,7 +35,7 @@ private String password;
            rs=st.executeQuery(sql);
            if(rs.next())
            {
-                
+                 
            }
               
         }
@@ -48,12 +48,12 @@ private String password;
     }
 
     @Override
-    public boolean setObjeto() {
+    public boolean setObjeto(ObjCuentas_usuarios laCuentaUsuario) {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
         ResultSet rs;
-        String sql="";
+        String sql="SELECT IDCUENTAUSUARIO,ID_USUARIO,ID_CUENTA FROM ordenadorfamilia.cuentas_usuarios where IDCUENTAUSUARIO="+laCuentaUsuario.getIDCUENTAUSUARIO();
         try
         {
            st=con.createStatement();
@@ -72,11 +72,11 @@ private String password;
     }
 
     @Override
-    public boolean deleteObjeto() {
+    public boolean deleteObjeto(ObjCuentas_usuarios laCuentaUsuario) {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
-        String sql="";
+        String sql="delete FROM ordenadorfamilia.cuentas_usuarios where IDCUENTAUSUARIO="+laCuentaUsuario.getIDCUENTAUSUARIO();
         try
         {
            st=con.createStatement();

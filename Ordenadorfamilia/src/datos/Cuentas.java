@@ -40,7 +40,10 @@ public class Cuentas implements crudObjetos{
            rs=st.executeQuery(sql);
            if(rs.next())
            {
-           
+             laCuenta.setID_CUENTA(rs.getInt("id_cuenta"));
+             laCuenta.setNOMBRE_CUENTA(rs.getString("nombre_cuenta"));
+             laCuenta.setMONTO_DEUDA(rs.getDouble("montodeuda"));
+             laCuenta.setEstado(rs.getBoolean("estado"));
            }
         }
         catch(SQLException ex)
@@ -65,13 +68,16 @@ public class Cuentas implements crudObjetos{
            rs=st.executeQuery(sql);
            if(rs.next())
            {
-            //aquí hará un update 
+               //Cuando la cuenta sea paga, cambiará su estado
+               sql="UPDATE ordenadorFamilia.cuentas set estado="+laCuenta+" WHERE id_cuenta="+laCuenta.getID_CUENTA();
+               
            }
            else
            {
-              //aquí sólo hará un inserción
-               
+              //aquí sólo hará un inserción o creaciòn de cuentas a pagar
+               sql="INSER INTO ordenadorfamilia.cuentas(nombre_cuenta,montodeuda,estado,fecha)values('"+laCuenta.getNOMBRE_CUENTA()+"','"+laCuenta.getMONTO_DEUDA()+"',"+laCuenta.isEstado()+",'"+laCuenta.getFecha()+"')";
            }
+           st.executeUpdate(sql);
            
         }
         catch(SQLException ex)

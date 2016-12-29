@@ -40,8 +40,7 @@ public class RolHogar implements crudObjetos{
            if(rs.next())
            {
                 elRolHogar.setId_Rol(rs.getInt("id_rol"));
-                elRolHogar.setDescripcion(rs.getString("descripcion"));
-                
+                elRolHogar.setDescripcion(rs.getString("descripcion")); 
            }
            
         }
