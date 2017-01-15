@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
-public class Usuario implements crudObjetos {
+public class Usuario {
 
     private String servidor;
     private String user;
@@ -17,8 +17,8 @@ public class Usuario implements crudObjetos {
         this.user = user;
         this.password = password;
     }
-    @Override
-    public Object getObjeto(int idUsuario) {
+    
+    public Object getObjeto(int idUsuario) throws ClassNotFoundException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -50,8 +50,7 @@ public class Usuario implements crudObjetos {
         return elUsuario;
     }
 
-    @Override
-    public boolean setObjeto(ObjUsuario elUsuario) {
+    public boolean setObjeto(ObjUsuario elUsuario) throws ClassNotFoundException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -63,9 +62,13 @@ public class Usuario implements crudObjetos {
            rs=st.executeQuery(sql);
            if(rs.next())
            {
-           
+               sql="Update ordenadorfamilia.usuario set ID_ROL="+elUsuario.getId_Rol()+", NOMBRE_USUARIO='"+elUsuario.getNombre_Usuario()+"',AP_PATERNO='"+elUsuario.getAp_Paterno()+"',AP_MATERNO='"+elUsuario.getAp_Materno()+"',NICK_NAME='"+elUsuario.getNickName()+"',PASSWORD='"+elUsuario.getPassWord()+"' WHERE id_usuario="+elUsuario.getIdUsuario();    
            }
-           
+           else
+           {
+               sql="INSERT INTO ordenadorfamilia.usuario(ID_ROL,NOMBRE_USUARIO,AP_PATERNO,AP_MATERNO,NICK_NAME,PASSWORD)values("+elUsuario.getId_Rol()+",'"+elUsuario.getNombre_Usuario()+"','"+elUsuario.getAp_Paterno()+"','"+elUsuario.getAp_Materno()+"','"+elUsuario.getNickName()+"','"+elUsuario.getPassWord()+")";
+           }
+           st.executeUpdate(sql);  
         }
         catch(SQLException ex)
         {
@@ -74,8 +77,7 @@ public class Usuario implements crudObjetos {
         return true;
     }
 
-    @Override
-    public boolean deleteObjeto(ObjUsuario elUsuario) {
+    public boolean deleteObjeto(ObjUsuario elUsuario) throws ClassNotFoundException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -91,5 +93,7 @@ public class Usuario implements crudObjetos {
         } 
         return true;
     }
+
+    
     
 }

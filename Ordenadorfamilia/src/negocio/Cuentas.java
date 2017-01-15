@@ -25,7 +25,7 @@ public class Cuentas {
         this.password=password;
     }
     
-    public ObjCuenta TraeCuenta(int id_cuenta)
+    public ObjCuenta TraeCuenta(int id_cuenta) throws ClassNotFoundException
     {
         datos.Cuentas proccessCuentas= new datos.Cuentas(servidor, user, password);
         datos.ObjCuenta laCuenta= new datos.ObjCuenta();
@@ -33,7 +33,7 @@ public class Cuentas {
     }
     
     
-    public boolean GuardarCuenta(int id_cuenta,String nombre_cuenta,double montodeuda,boolean estado, Date fecha)
+    public boolean GuardarCuenta(int id_cuenta,String nombre_cuenta,double montodeuda,boolean estado, Date fecha) throws ClassNotFoundException
     {
         datos.Cuentas proccessCuentas= new datos.Cuentas(servidor, user, password);
         datos.ObjCuenta laCuenta= new datos.ObjCuenta();
@@ -52,7 +52,7 @@ public class Cuentas {
     
     
     //
-    public boolean ModificaCuenta(int id_cuenta,String nombre_cuenta,double montodeuda,boolean estado, Date fecha)
+    public boolean ModificaCuenta(int id_cuenta,String nombre_cuenta,double montodeuda,boolean estado, Date fecha) throws ClassNotFoundException
     {
         datos.Cuentas proccessCuentas= new datos.Cuentas(servidor, user, password);
         datos.ObjCuenta laCuenta= new datos.ObjCuenta();
@@ -65,7 +65,7 @@ public class Cuentas {
         return proccessCuentas.setObjeto(laCuenta);
     }
     
-    public boolean eliminaCuenta(int id_cuenta)
+    public boolean eliminaCuenta(int id_cuenta) throws ClassNotFoundException
     {
         datos.Cuentas proccessCuentas= new datos.Cuentas(servidor, user, password);
         datos.ObjCuenta laCuenta= new datos.ObjCuenta();

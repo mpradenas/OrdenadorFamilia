@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
-public class Cuentas implements crudObjetos{
+public class Cuentas {
 
     private String servidor;
     private String user;
@@ -26,8 +26,8 @@ public class Cuentas implements crudObjetos{
     }
     
     
-    @Override
-    public Object getObjeto(int idCuenta) {
+   
+    public Object getObjeto(int idCuenta) throws ClassNotFoundException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -53,8 +53,8 @@ public class Cuentas implements crudObjetos{
         return laCuenta;
     }
 
-    @Override
-    public boolean setObjeto(ObjCuenta laCuenta) 
+    
+    public boolean setObjeto(ObjCuenta laCuenta) throws ClassNotFoundException 
     {
         basedatos bd;
         bd = new basedatos(this.servidor,this.user, this.password);
@@ -87,8 +87,7 @@ public class Cuentas implements crudObjetos{
         return true;
     }
 
-    @Override
-    public boolean deleteObjeto(ObjCuenta laCuenta) {
+    public boolean deleteObjeto(ObjCuenta laCuenta) throws ClassNotFoundException {
         basedatos bd;
         bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();

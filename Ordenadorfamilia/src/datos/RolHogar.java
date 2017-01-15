@@ -14,7 +14,7 @@ import java.sql.Statement;
  *
  * @author Gamalyon
  */
-public class RolHogar implements crudObjetos{
+public class RolHogar {
     private String servidor;
     private String user;
     private String password;
@@ -25,8 +25,7 @@ public class RolHogar implements crudObjetos{
         this.password = password;
     }
     
-    @Override
-    public Object getObjeto(int id_rol) {
+    public Object getObjeto(int id_rol) throws ClassNotFoundException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -51,8 +50,7 @@ public class RolHogar implements crudObjetos{
         return elRolHogar;
     }
 
-    @Override
-    public boolean setObjeto(ObjRolHogar elRol) {
+    public boolean setObjeto(ObjRolHogar elRol) throws SQLException, ClassNotFoundException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -64,23 +62,25 @@ public class RolHogar implements crudObjetos{
            rs=st.executeQuery(sql);
            if(rs.next())
            {
-                
+               sql="UPDATE ordenadorfamilia.rolhogar where descripcion='"+elRol.getDescripcion()+"' where id_rol="+elRol.getId_Rol();
            }
            else
            {
-           
+               sql="INSERT INTO ordenadorfamilia.rolhogar(descripcion)values('"+elRol.getDescripcion()+"')";
            }
+           st.executeUpdate(sql);
+        
         }
         catch(SQLException ex)
         {
             return true;     
         }
+        rs.close();
         return true;
      }
     
 
-    @Override
-    public boolean deleteObjeto(ObjRolHogar elRol) {
+    public boolean deleteObjeto(ObjRolHogar elRol) throws ClassNotFoundException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
