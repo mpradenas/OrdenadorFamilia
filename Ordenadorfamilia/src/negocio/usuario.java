@@ -15,6 +15,14 @@ public class usuario {
          this.user=user;
          this.password=password;
      }
+     
+     public Boolean usuarioExistente(String nickName)
+     {
+         ObjUsuario elUsuario= new ObjUsuario();
+         Usuario ProccessUsuario=new Usuario(servidor,user,password);
+             
+     }
+     
      public ObjUsuario TraeUsuario(int idusuario) throws ClassNotFoundException
      {
          ObjUsuario elUsuario= new ObjUsuario();
