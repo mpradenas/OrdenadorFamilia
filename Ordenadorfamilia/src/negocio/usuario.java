@@ -3,6 +3,7 @@ package negocio;
 import datos.ObjRolHogar;
 import datos.ObjUsuario;
 import datos.Usuario;
+import java.sql.SQLException;
 
 
 public class usuario {
@@ -16,21 +17,20 @@ public class usuario {
          this.password=password;
      }
      
-     public Boolean usuarioExistente(String nickName)
+     public Boolean usuarioExistente(String nickName) throws SQLException, ClassNotFoundException
      {
-         ObjUsuario elUsuario= new ObjUsuario();
          Usuario ProccessUsuario=new Usuario(servidor,user,password);
-             
+         return ProccessUsuario.existUsuario(nickName);
      }
      
-     public ObjUsuario TraeUsuario(int idusuario) throws ClassNotFoundException
+     public ObjUsuario TraeUsuario(int idusuario) throws ClassNotFoundException, SQLException
      {
          ObjUsuario elUsuario= new ObjUsuario();
          Usuario ProccessUsuario=new Usuario(servidor,user,password);
          return elUsuario=(ObjUsuario)ProccessUsuario.getObjeto(idusuario);
      }
      
-     public boolean guardaUsuario(int idUsuario, ObjRolHogar Id_Rol, String Nombre_Usuario, String Ap_Paterno, String Ap_Materno, String NickName, String PassWord) throws ClassNotFoundException
+     public boolean guardaUsuario(int idUsuario, ObjRolHogar Id_Rol, String Nombre_Usuario, String Ap_Paterno, String Ap_Materno, String NickName, String PassWord) throws ClassNotFoundException, SQLException
      {
          ObjUsuario elUsuario= new ObjUsuario();
          Usuario ProccessUsuario=new Usuario(servidor,user,password);
@@ -50,7 +50,7 @@ public class usuario {
          return ProccessUsuario.setObjeto(elUsuario);
      }
      
-     public boolean ModificaUsuario(int idUsuario, ObjRolHogar Id_Rol, String Nombre_Usuario, String Ap_Paterno, String Ap_Materno, String NickName, String PassWord) throws ClassNotFoundException
+     public boolean ModificaUsuario(int idUsuario, ObjRolHogar Id_Rol, String Nombre_Usuario, String Ap_Paterno, String Ap_Materno, String NickName, String PassWord) throws ClassNotFoundException, SQLException
      {
          ObjUsuario elUsuario= new ObjUsuario();
          Usuario ProccessUsuario=new Usuario(servidor,user,password);
@@ -64,7 +64,7 @@ public class usuario {
          return ProccessUsuario.setObjeto(elUsuario);
      }
      
-     public boolean EliminaUsuario(int idUsuario) throws ClassNotFoundException
+     public boolean EliminaUsuario(int idUsuario) throws ClassNotFoundException, SQLException
      {
          ObjUsuario elUsuario= new ObjUsuario();
          Usuario ProccessUsuario=new Usuario(servidor,user,password);

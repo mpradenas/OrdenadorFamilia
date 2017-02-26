@@ -28,13 +28,21 @@ public class OrdenadorFamilia {
     
     public static String[] traeDatos() throws FileNotFoundException, IOException
     {
+        String[] arreglo=new String[3];
+        try
+        {
           Properties prop=new Properties();
           FileReader lector=new FileReader("BaseDatos.properties");
           prop.load(lector);
-          String[] arreglo=new String[2];
           arreglo[0]=prop.getProperty("user");
           arreglo[1]=prop.getProperty("database");
-          return arreglo;
+          arreglo[2]=prop.getProperty("password");
+        }
+        catch(IOException ex)
+        {
+           arreglo=null;
+        }
+        return arreglo;
     }
     
 }

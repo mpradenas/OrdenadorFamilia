@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -49,7 +51,60 @@ public class RolHogar {
         }
         return elRolHogar;
     }
-
+    
+     public Object getObjeto(String  descripcion) throws ClassNotFoundException, SQLException {
+        basedatos bd = new basedatos(this.servidor,this.user, this.password);
+        Connection con=bd.getConnection();
+        Statement st;
+        ResultSet rs;
+        String sql="SELECT id_rol,descripcion FROM ordenadorfamilia.rolhogar where descripcion='"+descripcion+"'";
+        ObjRolHogar elRolHogar= new ObjRolHogar();
+        try
+        {
+           st=con.createStatement();
+           rs=st.executeQuery(sql);
+           if(rs.next())
+           {
+                elRolHogar.setId_Rol(rs.getInt("id_rol"));
+                elRolHogar.setDescripcion(rs.getString("descripcion")); 
+           }
+           
+        }
+        catch(SQLException ex)
+        {
+             elRolHogar=null;
+        }
+        con.close();
+        return elRolHogar;
+    }
+    
+    public List<ObjRolHogar> getListaRoles() throws ClassNotFoundException {
+        basedatos bd = new basedatos(this.servidor,this.user, this.password);
+        Connection con=bd.getConnection();
+        Statement st;
+        ResultSet rs;
+        String sql="SELECT id_rol,descripcion FROM ordenadorfamilia.rolhogar";
+        List<ObjRolHogar>ListaRoles=new ArrayList<>();
+        
+        try
+        {
+           st=con.createStatement();
+           rs=st.executeQuery(sql);
+           while(rs.next())
+           {
+               ObjRolHogar elRolHogar= new ObjRolHogar();
+               elRolHogar.setId_Rol(rs.getInt("id_rol"));
+               elRolHogar.setDescripcion(rs.getString("descripcion")); 
+               ListaRoles.add(elRolHogar);
+           }
+        }
+        catch(SQLException ex)
+        {
+             ListaRoles=null;
+        }
+        return ListaRoles;
+    }
+    
     public boolean setObjeto(ObjRolHogar elRol) throws SQLException, ClassNotFoundException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();

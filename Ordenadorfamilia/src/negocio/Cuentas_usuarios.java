@@ -8,6 +8,7 @@ package negocio;
 import datos.ObjCuenta;
 import datos.ObjCuentas_usuarios;
 import datos.ObjUsuario;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class Cuentas_usuarios {
            return ProccessCuentaUsuario.getListObjeto(idUSuario);
     }
     
-    public boolean guardaCuentasUsuarios(int id_cuentaUsuario, int idUsuario, int idCuenta) throws ClassNotFoundException
+    public boolean guardaCuentasUsuarios(int id_cuentaUsuario, int idUsuario, int idCuenta) throws ClassNotFoundException, SQLException
     {
         datos.Cuentas_usuarios ProccessCuentaUsuario=new datos.Cuentas_usuarios(servidor,user,password);
         datos.Usuario ProccessUsuarios=new datos.Usuario(servidor, user, password);
@@ -55,7 +56,7 @@ public class Cuentas_usuarios {
         return ProccessCuentaUsuario.setObjeto(laCuenta_usuario);
     }
     
-    public boolean ModificaCuentasUsuarios(int id_cuentaUsuario, int idUsuario, int idCuenta) throws ClassNotFoundException
+    public boolean ModificaCuentasUsuarios(int id_cuentaUsuario, int idUsuario, int idCuenta) throws ClassNotFoundException, SQLException
     {
         datos.Cuentas_usuarios ProccessCuentaUsuario=new datos.Cuentas_usuarios(servidor,user,password);
         datos.ObjCuentas_usuarios laCuenta_usuario=new datos.ObjCuentas_usuarios();

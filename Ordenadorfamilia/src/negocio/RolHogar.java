@@ -7,6 +7,7 @@ package negocio;
 
 import datos.ObjRolHogar;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -31,6 +32,19 @@ public class RolHogar {
           return (ObjRolHogar)ProccessRolHogar.getObjeto(id_rol);
     }
     
+    public ObjRolHogar TraeRolHogar(String descripcion) throws ClassNotFoundException
+    {
+          datos.RolHogar ProccessRolHogar= new datos.RolHogar(servidor,user,password);
+          return (ObjRolHogar)ProccessRolHogar.getObjeto(id_rol);
+    }
+    
+    public List<ObjRolHogar> TraeListaRolHogar() throws ClassNotFoundException
+    {
+          datos.RolHogar ProccessRolHogar= new datos.RolHogar(servidor,user,password);
+          return ProccessRolHogar.getListaRoles();
+    }
+    
+   
     public boolean GuardaRolHogar(int id_rol,String Descripcion) throws ClassNotFoundException, SQLException
     {
         datos.RolHogar ProccessRolHogar= new datos.RolHogar(servidor,user,password);

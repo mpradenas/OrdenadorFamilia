@@ -18,7 +18,27 @@ public class Usuario {
         this.password = password;
     }
     
-    public Object getObjeto(int idUsuario) throws ClassNotFoundException {
+    public boolean existUsuario(String NickName) throws SQLException, ClassNotFoundException
+    {
+       basedatos db=new basedatos(this.servidor,this.user,this.password);
+       Connection con=db.getConnection();
+       Statement st;
+       ResultSet rs;
+       String sql=" SELECT ID_USUARIO,ID_ROL,NOMBRE_USUARIO,AP_PATERNO,AP_MATERNO,NICK_NAME,PASSWORD FROM ordenadorfamilia.usuario WHERE nick_name='"+NickName+"'";
+       st=con.createStatement();
+       rs=st.executeQuery(sql);
+       if(rs.next())
+       {
+           rs.close();
+           con.close();
+           return true;
+       }
+        rs.close();
+        con.close();
+        return false;
+    }
+    
+    public Object getObjeto(int idUsuario) throws ClassNotFoundException, SQLException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -46,11 +66,12 @@ public class Usuario {
         catch(SQLException ex)
         {
              elUsuario=null;
-        } 
+        }
+        con.close();
         return elUsuario;
     }
 
-    public boolean setObjeto(ObjUsuario elUsuario) throws ClassNotFoundException {
+    public boolean setObjeto(ObjUsuario elUsuario) throws ClassNotFoundException, SQLException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -74,10 +95,11 @@ public class Usuario {
         {
             return false;     
         } 
+        con.close();
         return true;
     }
 
-    public boolean deleteObjeto(ObjUsuario elUsuario) throws ClassNotFoundException {
+    public boolean deleteObjeto(ObjUsuario elUsuario) throws ClassNotFoundException, SQLException {
         basedatos bd = new basedatos(this.servidor,this.user, this.password);
         Connection con=bd.getConnection();
         Statement st;
@@ -90,7 +112,8 @@ public class Usuario {
         catch(SQLException ex)
         {
             return false;     
-        } 
+        }
+        con.close();
         return true;
     }
 
